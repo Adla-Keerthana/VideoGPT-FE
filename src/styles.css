@@ -1,0 +1,131 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Smooth Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.logo img {
+  height: 30px;
+  margin-right: 10px;
+}
+
+/* Module Buttons */
+.module-buttons {
+  display: flex;
+}
+
+.module-btn {
+  margin-left: 10px;
+  padding: 8px 12px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.module-btn:hover {
+  background: #0056b3;
+}
+
+.module-btn.active {
+  background: #004494;
+}
+
+/* Content Area */
+.content {
+  max-width: 800px;
+  margin: 30px auto;
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.feature-list li {
+  font-size: 16px;
+  padding: 5px 0;
+}
+
+/* Prompt Container */
+.prompt-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.prompt-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.prompt-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Small "Choose File" Button Beside Input */
+.file-upload-btn {
+  font-size: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.file-upload-btn:hover {
+  color: #0056b3;
+}
+
+.file-input {
+  display: none;
+}
