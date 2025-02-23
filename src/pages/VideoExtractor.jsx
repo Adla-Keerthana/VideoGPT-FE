@@ -1,64 +1,110 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { Download, Clock, Upload, Film, X } from "lucide-react";
+import Navbar from "./Navbar";
+import "./pagestyles/VideoExtractor.css";
 
 const VideoExtractor = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [segments, setSegments] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith("video/")) {
+      setVideoFile(file);
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("video/")) {
+      setVideoFile(file);
+    }
+  };
+
+  const removeVideo = () => {
+    setVideoFile(null);
+    setSegments([]);
+  };
 
   return (
-    <div className="min-h-screen extractor-container">
-      {/* Video Workspace */}
-      <div className="extractor-content">
-        <div className="video-workspace">
-          {/* Video Preview */}
-          <div className="video-preview">
+    <div className="video-extractor-container">
+      <Navbar />
+      <div className="content-wrapper" style={{ marginTop: '60px' }}>
+        <div className="main-section">
+          {/* Upload Section */}
+          <div
+            className={`dropzone-area ${isDragging ? "dragging" : ""}`}
+            onDragEnter={handleDragEnter}
+            onDragOver={(e) => e.preventDefault()}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            style={{ backgroundColor: '#2a2a2a' }}
+          >
             {videoFile ? (
-              <video src={URL.createObjectURL(videoFile)} controls className="video-player" />
+              <div className="video-preview">
+                <video src={URL.createObjectURL(videoFile)} controls className="uploaded-video" />
+                <button onClick={removeVideo} className="remove-btn">
+                  <X size={20} />
+                </button>
+              </div>
             ) : (
               <div className="upload-placeholder">
-                <div className="upload-icon">🎬</div>
-                <p>Upload a video to start extracting clips</p>
+                <Upload className="upload-icon" />
+                <p className="upload-text">Drag & Drop Video Here</p>
+                <span className="divider">or</span>
                 <label className="upload-button">
                   Choose File
-                  <input type="file" onChange={(e) => setVideoFile(e.target.files[0])} />
+                  <input type="file" accept="video/*" onChange={handleFileSelect} hidden />
                 </label>
               </div>
             )}
           </div>
 
-          {/* Timeline Editor */}
-          <div className="timeline-editor">
-            <h3 className="timeline-title">Timeline</h3>
-            <div className="timeline-track"></div>
-            <div className="timeline-controls">
-              <button className="control-btn"><span className="btn-icon">⏮</span></button>
-              <button className="control-btn"><span className="btn-icon">⏯</span></button>
-              <button className="control-btn"><span className="btn-icon">⏭</span></button>
+          {/* Extracted Clips Section */}
+          <div className="clips-section">
+            <div className="clips-header">
+              <Film className="clips-icon" />
+              <span>Extracted Clips</span>
             </div>
-          </div>
-        </div>
-
-        {/* Extraction Controls */}
-        <div className="extraction-controls">
-          <div className="segment-list">
-            <h3>Segments</h3>
             {segments.length > 0 ? (
-              segments.map((segment, index) => (
-                <div key={index} className="segment-item">
-                  <span className="segment-text">Segment {index + 1}</span>
-                </div>
-              ))
+              <div className="clips-grid">
+                {segments.map((segment, index) => (
+                  <div key={index} className="clip-item">
+                    <video src={segment.url} controls className="clip-video" />
+                    <div className="clip-footer">
+                      <button className="timeframe-btn">
+                        <Clock size={16} /> Timeframe
+                      </button>
+                      <button className="download-btn">
+                        <Download size={16} /> Download
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : (
-              <p className="no-segments">No segments extracted yet.</p>
+              <p className="no-clips">No clips extracted yet</p>
             )}
           </div>
         </div>
 
-        {/* Prompt Bar */}
+        {/* Prompt Section */}
         <div className="prompt-container">
-          <textarea className="prompt-input" placeholder="Describe the clip you want to extract..."></textarea>
-          <div className="prompt-actions">
-            <button className="extract-btn">Extract Clip</button>
-          </div>
+          <textarea placeholder="Describe the clip you want to extract..." />
+          <button className="extract-btn">Extract Clip</button>
         </div>
       </div>
     </div>

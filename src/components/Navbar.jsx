@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiHome } from 'react-icons/fi';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,9 +19,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-brand" onClick={() => navigate('/')}>
-          VideoAI
-        </div>
+        <div className="navbar-brand" onClick={() => navigate('/')}>VideoAI</div>
+        
+        {/* Home Link */}
+        <button className="home-button" onClick={() => navigate('/')}>
+          <FiHome size={24} />
+        </button>
 
         {/* Hamburger Menu for Mobile */}
         <button className="navbar-mobile-toggle" onClick={toggleMenu}>

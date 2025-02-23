@@ -1,0 +1,214 @@
+.video-extractor-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #1a1a1a, #000000);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;
+    height: 90vh;
+    justify-content: space-between;
+}
+
+.main-section {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+    height: 70%;
+}
+
+/* Drag & Drop Section */
+.dropzone-area {
+    flex: 1;
+    height: 100%;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.dropzone-area.dragging {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #3b82f6;
+    animation: bounce 1s infinite alternate;
+}
+
+.upload-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.divider {
+    margin: 8px 0;
+    color: #aaa;
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #3b82f6;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.upload-button:hover {
+    background: #1d4ed8;
+}
+
+/* Video Preview */
+.video-preview {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.uploaded-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Extracted Clips Section */
+.clips-section {
+    flex: 1;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.clips-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.clips-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.clip-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.clip-video {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.clip-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.timeframe-btn, .download-btn {
+    background: #3b82f6;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.timeframe-btn:hover, .download-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Prompt Section */
+.prompt-container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.prompt-container textarea {
+    width: 100%;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+}
+
+.extract-btn {
+    width: 100%;
+    padding: 10px;
+    background: #3b82f6;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.extract-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-section {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .dropzone-area, .clips-section {
+        height: auto;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
