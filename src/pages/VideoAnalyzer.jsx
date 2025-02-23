@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
+import Navbar from './Navbar';  // Import the Navbar component
 import "./pagestyles/VideoAnalyzer.css";
 
 const VideoAnalyzer = () => {
@@ -30,18 +30,7 @@ const VideoAnalyzer = () => {
 
   return (
     <div className="app-container">
-      {/* Navbar */}
-      <nav className="navbar">
-        <Link to="/" className="navbar-logo">
-          <span className="logo-icon">📽️</span>
-          <span className="logo-text">VideoGPT</span>
-        </Link>
-        <div className="nav-links">
-          <Link to="/analyzer" className="nav-link active">Video Analyzer</Link>
-          <Link to="/extractor" className="nav-link">Video Extractor</Link>
-          <Link to="/qa" className="nav-link">Video Q&A</Link>
-        </div>
-      </nav>
+      <Navbar /> {/* Use the imported Navbar component */}
 
       <main className="main-content">
         <div className="content-wrapper">
