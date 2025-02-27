@@ -7,6 +7,8 @@ const VideoExtractor = () => {
   const [videoFile, setVideoFile] = useState(null);
   const [segments, setSegments] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -39,10 +41,44 @@ const VideoExtractor = () => {
     setSegments([]);
   };
 
+  const handleExtractClip = async () => {
+    if (!videoFile || !prompt.trim()) {
+      alert("Please upload a video and enter a prompt!");
+      return;
+    }
+
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("file", videoFile);
+    formData.append("query", prompt);
+
+    try {
+      const response = await fetch("http://localhost:8000/extract_clips", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to extract clips.");
+      }
+
+      // Assume the backend sends a downloadable video file
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      setSegments([{ url }]);
+    } catch (error) {
+      console.error("Error extracting clips:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="video-extractor-container">
       <Navbar />
-      <div className="content-wrapper" style={{ marginTop: '60px' }}>
+      <div className="content-wrapper" style={{ marginTop: "60px" }}>
         <div className="main-section">
           {/* Upload Section */}
           <div
@@ -51,11 +87,15 @@ const VideoExtractor = () => {
             onDragOver={(e) => e.preventDefault()}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            style={{ backgroundColor: '#2a2a2a' }}
+            style={{ backgroundColor: "#2a2a2a" }}
           >
             {videoFile ? (
               <div className="video-preview">
-                <video src={URL.createObjectURL(videoFile)} controls className="uploaded-video" />
+                <video
+                  src={URL.createObjectURL(videoFile)}
+                  controls
+                  className="uploaded-video"
+                />
                 <button onClick={removeVideo} className="remove-btn">
                   <X size={20} />
                 </button>
@@ -67,7 +107,12 @@ const VideoExtractor = () => {
                 <span className="divider">or</span>
                 <label className="upload-button">
                   Choose File
-                  <input type="file" accept="video/*" onChange={handleFileSelect} hidden />
+                  <input
+                    type="file"
+                    accept="video/*"
+                    onChange={handleFileSelect}
+                    hidden
+                  />
                 </label>
               </div>
             )}
@@ -79,7 +124,9 @@ const VideoExtractor = () => {
               <Film className="clips-icon" />
               <span>Extracted Clips</span>
             </div>
-            {segments.length > 0 ? (
+            {loading ? (
+              <p className="loading-text">Extracting clips...</p>
+            ) : segments.length > 0 ? (
               <div className="clips-grid">
                 {segments.map((segment, index) => (
                   <div key={index} className="clip-item">
@@ -88,9 +135,13 @@ const VideoExtractor = () => {
                       <button className="timeframe-btn">
                         <Clock size={16} /> Timeframe
                       </button>
-                      <button className="download-btn">
+                      <a
+                        href={segment.url}
+                        download={`extracted_clip_${index}.mp4`}
+                        className="download-btn"
+                      >
                         <Download size={16} /> Download
-                      </button>
+                      </a>
                     </div>
                   </div>
                 ))}
@@ -103,8 +154,18 @@ const VideoExtractor = () => {
 
         {/* Prompt Section */}
         <div className="prompt-container">
-          <textarea placeholder="Describe the clip you want to extract..." />
-          <button className="extract-btn">Extract Clip</button>
+          <textarea
+            placeholder="Describe the clip you want to extract..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+          />
+          <button
+            className="extract-btn"
+            onClick={handleExtractClip}
+            disabled={loading}
+          >
+            {loading ? "Extracting..." : "Extract Clip"}
+          </button>
         </div>
       </div>
     </div>
