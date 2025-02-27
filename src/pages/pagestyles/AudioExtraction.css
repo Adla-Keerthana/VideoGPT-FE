@@ -1,4 +1,4 @@
-.video-extractor-container {
+.audio-extraction-container {
     min-height: 100vh;
     background-color: #0a192f ;
     color: white;
@@ -81,13 +81,23 @@
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .uploaded-video {
     width: 100%;
-    height: 100%;
+    flex: 1;
     border-radius: 12px;
     object-fit: cover;
+}
+
+.video-info {
+    margin-top: 10px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
 }
 
 .remove-btn {
@@ -98,10 +108,15 @@
     padding: 5px;
     border-radius: 50%;
     cursor: pointer;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Extracted Clips Section */
-.clips-section {
+/* Extracted Audio Section */
+.audio-section {
     flex: 1;
     height: 100%;
     background: rgba(255, 255, 255, 0.05);
@@ -110,86 +125,188 @@
     overflow-y: auto;
 }
 
-.clips-header {
+.audio-header {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 1.2rem;
     font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.audio-icon {
+    color: #3b82f6;
+}
+
+.audio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.audio-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+
+.audio-item:hover {
+    transform: translateY(-3px);
+}
+
+.audio-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 10px;
 }
 
-.clips-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
+.audio-file-icon {
+    color: #3b82f6;
 }
 
-.clip-item {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.clip-video {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.clip-footer {
+.audio-details {
     display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.timeframe-btn, .download-btn {
+.audio-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.audio-format, .audio-quality {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.audio-player {
+    width: 100%;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.audio-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.download-btn {
     background: #3b82f6;
-    padding: 5px 10px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
 }
 
-.timeframe-btn:hover, .download-btn:hover {
+.download-btn:hover {
     background: #1d4ed8;
 }
 
-/* Prompt Section */
-.prompt-container {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 12px;
+/* No Audio State */
+.no-audio {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    text-align: center;
 }
 
-.prompt-container textarea {
+.no-audio-icon {
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
+}
+
+.no-audio-hint {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* Audio Options Section */
+.audio-options-container {
     width: 100%;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.option-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.option-group select {
     padding: 10px;
-    color: white;
+    border-radius: 8px;
+    background: rgba(243, 233, 233, 0.975); /* Change this if needed */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: black; /* Ensure text is visible */
     font-size: 1rem;
+    cursor: pointer;
     outline: none;
-    resize: none;
+}
+
+.option-group select:focus {
+    border-color: #3b82f6;
 }
 
 .extract-btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #3b82f6;
+    border: none;
     border-radius: 8px;
+    color: white;
     font-weight: bold;
+    font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.extract-btn:hover {
+.extract-btn:hover:not(:disabled) {
     background: #1d4ed8;
+}
+
+.extract-btn:disabled {
+    background: rgba(59, 130, 246, 0.5);
+    cursor: not-allowed;
+}
+
+.loading-text {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    color: #aaa;
 }
 
 /* Responsive Design */
@@ -198,9 +315,14 @@
         flex-direction: column;
         height: auto;
     }
-
-    .dropzone-area, .clips-section {
+    
+    .dropzone-area, .audio-section {
         height: auto;
+        min-height: 300px;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
     }
 }
 

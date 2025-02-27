@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./pagestyles/Home.css";
 import { useEffect, useRef, useState } from "react";
-import { Play, Brain, Scissors, MessageSquare, ChevronRight, ArrowRight } from "lucide-react";
+import { Play, Brain, Scissors, MessageSquare, ChevronRight, ArrowRight, Globe, Music } from "lucide-react";
 
 const Home = () => {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -25,6 +25,18 @@ const Home = () => {
       title: "Interactive Insights",
       description: "Have natural conversations about your video content with our advanced AI assistant",
       bgShape: "square"
+    },
+    {
+      icon: <Globe className="w-8 h-8" />,
+      title: "Video Translation",
+      description: "Instantly translate your videos into multiple languages with our advanced AI translation technology",
+      bgShape: "triangle"
+    },
+    {
+      icon: <Music className="w-8 h-8" />,
+      title: "Audio Extraction",
+      description: "Extract high-quality audio from your videos with precision and clarity",
+      bgShape: "pentagon"
     }
   ];
 
@@ -71,7 +83,7 @@ const Home = () => {
               </h1>
               <p className="hero-subtitle">
                 Experience the future of video analysis with advanced AI technology.
-                Understand, extract, and interact with your content like never before.
+                Understand, extract, translate, and interact with your content like never before.
               </p>
               <div className="hero-cta">
                 <Link to="/analyzer" className="cta-primary">

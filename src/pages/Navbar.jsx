@@ -91,6 +91,12 @@ const Navbar = () => {
           <Link to="/qa" className="nav-link">
             Video Q&A
           </Link>
+          <Link to="/translator" className="nav-link">
+            Video Translator
+          </Link>
+          <Link to="/audio-extraction" className="nav-link">
+            Audio Extraction
+          </Link>
         </div>
       </nav>
     </>
